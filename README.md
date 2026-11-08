@@ -59,6 +59,48 @@ The backend provides authentication, hospital management, prediction processing,
 4. For prediction requests, the backend communicates with the Python AI service.
 5. The API returns the appropriate result to the client.
 
+## 🌐 Infrastructure & Virtualization
+
+The project uses a distributed infrastructure consisting of four Ubuntu Server virtual machines running on Oracle VirtualBox.
+
+| Server | Role | Responsibility |
+|---|---|---|
+| Central Server | Central Coordination | Receives model updates, performs aggregation, and manages the global model. |
+| Client Server | Communication Layer | Acts as an intermediary between hospital servers and the Central Server. |
+| WEB1 – Hospital 1 | Local Training | Represents a participating hospital and performs local model training. |
+| WEB2 – Hospital 2 | Local Training | Represents another participating hospital and performs local model training. |
+
+**Infrastructure Technologies:**
+
+| Technology | Purpose |
+|---|---|
+| Oracle VirtualBox | Virtual machine management and server virtualization |
+| Ubuntu Server | Operating system for the server environments |
+| WireGuard VPN | Secure encrypted communication between participating servers |
+| Private Network | Communication between distributed infrastructure components |
+
+## 🔐 Network Architecture & VPN Communication
+
+The distributed infrastructure uses **WireGuard VPN** to establish secure communication between server environments.
+
+WireGuard provides encrypted network tunnels and private IP connectivity, allowing the participating servers to communicate without relying on direct public network exposure.
+
+**Network Communication Workflow:**
+
+1. Each server operates within its own Ubuntu Server virtual machine.
+2. WireGuard establishes secure VPN connectivity between participating nodes.
+3. Hospital servers communicate with the Client Server.
+4. The Client Server forwards model updates to the Central Server.
+5. The Central Server aggregates the received updates and produces an updated global model.
+6. The updated global model is returned through the Client Server to participating hospitals.
+
+**Network Security:**
+
+- Encrypted communication using WireGuard.
+- Private VPN addressing for server-to-server communication.
+- Separation between hospital environments and central coordination.
+- Private keys and sensitive VPN configuration files are excluded from the public repository.
+
 ## 🛠️ Technology Stack
 
 | Technology | Role |
@@ -73,6 +115,9 @@ The backend provides authentication, hospital management, prediction processing,
 | FastAPI | AI service API |
 | Swagger | API documentation |
 | AES-256-GCM | Application-level encryption for selected fields |
+| Ubuntu Server | Server operating system |
+| Oracle VirtualBox | Virtualization platform |
+| WireGuard | Secure VPN networking |
 
 ## 📂 Project Structure
 
@@ -115,7 +160,7 @@ Fedrated-Learning-pilot/
 ### 1. Clone the Repository
 
 ```bash
-git clone <https://github.com/youssefzakaria14/Fedrated-Learning-pilot>
+git clone https://github.com/youssefzakaria14/Fedrated-Learning-pilot.git
 cd Fedrated-Learning-pilot
 ```
 
@@ -205,5 +250,5 @@ Security is an important part of a healthcare-oriented system.
 <p align="center">
   <b>Built for Healthcare • AI • Secure Backend Engineering</b>
   <br/>
-  <sub>Node.js · Express.js · MongoDB · Python · FastAPI</sub>
+  <sub>Node.js · Express.js · MongoDB · Python · FastAPI · Ubuntu · VirtualBox · WireGuard</sub>
 </p>
