@@ -1,151 +1,248 @@
-# 🏥 Federated Learning Healthcare Platform
+# 🏥 FedHealth — Federated Learning Healthcare Platform
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Healthcare-AI%20Platform-0D9488?style=for-the-badge&logo=heart&logoColor=white" alt="Healthcare AI"/>
-  <img src="https://img.shields.io/badge/Node.js-Backend-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js"/>
-  <img src="https://img.shields.io/badge/Express.js-REST%20API-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js"/>
-  <img src="https://img.shields.io/badge/MongoDB-Database-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB"/>
+  <img src="https://img.shields.io/badge/Healthcare-AI%20Platform-0D9488?style=for-the-badge" alt="Healthcare AI">
+  <img src="https://img.shields.io/badge/Backend-Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js">
+  <img src="https://img.shields.io/badge/AI-Python%20%7C%20FastAPI-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Database-MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB">
+  <img src="https://img.shields.io/badge/Network-WireGuard%20VPN-88171A?style=for-the-badge&logo=wireguard&logoColor=white" alt="WireGuard">
 </p>
 
 <p align="center">
-  <b>A secure backend for collaborative healthcare AI.</b>
-  <br/>
-  Connecting hospital management, AI-powered predictions, and federated learning workflows through a modular REST API.
+  **A Secure Healthcare Platform Combining Artificial Intelligence, Federated Learning, and Network Infrastructure.**
 </p>
 
 ---
 
 ## 🧠 About the Project
 
-The **Federated Learning Healthcare Platform** is a backend system designed to support collaboration between healthcare institutions through a centralized API layer and an AI-powered prediction service.
+FedHealth is a healthcare-focused platform designed to support collaboration between multiple hospitals through Federated Learning.
 
-Federated Learning enables participating institutions to contribute to collaborative model training without requiring their raw training data to be pooled into one central dataset.
+Each participating hospital trains a local machine-learning model using its own dataset. Model updates are exchanged through the federation infrastructure, allowing hospitals to contribute to a shared global model without centralizing their raw training datasets.
 
-The backend provides authentication, hospital management, prediction processing, dashboard integration, and database protection to support the platform's healthcare workflows.
+The platform integrates backend development, artificial intelligence, database management, network connectivity, VPN security, and server infrastructure.
+
+## 🎯 Project Objectives
+
+- Enable collaborative model training across multiple hospitals.
+- Keep raw hospital training datasets within their local environments.
+- Provide AI-powered healthcare predictions.
+- Manage users, hospitals, predictions, and dashboard information.
+- Establish secure communication between distributed servers.
+- Protect sensitive application data.
+- Monitor hospital participation and federated training activities.
 
 ## ✨ Core Features
 
 | Feature | Description |
 |---|---|
-| 🔐 Authentication | User registration, login, JWT-based authentication, and protected routes |
-| 👥 Role-Based Access | Separate permissions for doctors and administrators |
-| 🏥 Hospital Management | Manage hospital records and participant information |
-| 🤖 AI Integration | Send prediction requests to the Python AI service and process its results |
-| 📊 Dashboard APIs | Retrieve training metrics, hospital information, and evaluation results |
-| 🔒 Data Encryption | Application-level encryption for selected sensitive hospital and prediction fields |
-| 📚 API Documentation | Explore and test endpoints through Swagger UI |
-| 🗄️ Database Integration | MongoDB Atlas integration using Mongoose |
+| 🔐 Authentication | JWT-based authentication and protected APIs |
+| 👥 Role-Based Access | Doctor and Administrator permissions |
+| 🏥 Hospital Management | Hospital records and participant management |
+| 🤖 AI Integration | Python-based prediction service |
+| 🧠 Federated Learning | Local training and collaborative model updates |
+| 📊 Dashboard | Hospital and model-training information |
+| 🔒 Data Encryption | Encryption for selected sensitive fields |
+| 🌐 Private Networking | Server connectivity through WireGuard VPN |
+| 🧱 Network Security | Firewall policies and controlled traffic |
+| 📚 API Documentation | Interactive Swagger UI |
 
-## 🏗️ System Architecture
+## 🏗️ Overall System Architecture
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Client-Frontend-2563EB?style=flat-square" alt="Client"/>
-  <b> → </b>
-  <img src="https://img.shields.io/badge/Backend-Node.js%20%2B%20Express-339933?style=flat-square" alt="Backend"/>
-  <b> → </b>
-  <img src="https://img.shields.io/badge/Database-MongoDB-47A248?style=flat-square" alt="Database"/>
-</p>
+```text
+                    FEDHEALTH PLATFORM
+                            |
+       +--------------------+--------------------+
+       |                    |                    |
+    BACKEND              AI-PILOT           INFRASTRUCTURE
+       |                    |                    |
+  Node.js / Express     Python / FastAPI     Central Server
+      MongoDB             ML Models          Client Server
+       |                    |               Hospital Servers
+       +--------------------+--------------------+
+                            |
+                      NETWORK LAYER
+                            |
+                     WireGuard VPN
+                     Firewall Rules
+                     Private Routing
+```
 
-<p align="center">
-  <img src="https://img.shields.io/badge/AI%20Service-Python%20%2B%20FastAPI-009688?style=flat-square" alt="AI Service"/>
-  <img src="https://img.shields.io/badge/Model-Federated%20Learning-7C3AED?style=flat-square" alt="Federated Learning"/>
-</p>
+## 🧠 Federated Learning Architecture
 
-**Request flow:**
+The federated learning architecture enables hospitals to train local models and exchange model updates through the infrastructure layer.
 
-1. The client sends an authenticated request to the Express API.
-2. Middleware validates authentication, permissions, and request data.
-3. The backend reads or updates application data in MongoDB.
-4. For prediction requests, the backend communicates with the Python AI service.
-5. The API returns the appropriate result to the client.
+```text
++----------------------+       +----------------------+
+|     Hospital 1       |       |     Hospital 2       |
+|                      |       |                      |
+| Local Dataset        |       | Local Dataset        |
+| Local Training       |       | Local Training       |
++----------+-----------+       +----------+-----------+
+           |                              |
+           +--------------+---------------+
+                          |
+                   WireGuard VPN
+                          |
+                  +-------v-------+
+                  | Client Server |
+                  | Update Relay  |
+                  +-------+-------+
+                          |
+                   WireGuard VPN
+                          |
+                  +-------v-------+
+                  | Central Server|
+                  | Model         |
+                  | Aggregation   |
+                  +-------+-------+
+                          |
+                     Global Model
+                          |
+                  Client Server Relay
+                          |
+               +----------+----------+
+               |                     |
+           Hospital 1            Hospital 2
+```
 
-## 🌐 Infrastructure & Virtualization
+**Federated Learning Workflow:**
 
-The project uses a distributed infrastructure consisting of four Ubuntu Server virtual machines running on Oracle VirtualBox.
+1. Each hospital trains a local model using its own dataset.
+2. Hospital servers send model updates to the Client Server.
+3. The Client Server forwards updates to the Central Server.
+4. The Central Server coordinates model aggregation.
+5. The resulting global model is returned through the Client Server.
+6. The Client Server distributes the global model to participating hospitals.
 
-| Server | Role | Responsibility |
-|---|---|---|
-| Central Server | Central Coordination | Receives model updates, performs aggregation, and manages the global model. |
-| Client Server | Communication Layer | Acts as an intermediary between hospital servers and the Central Server. |
-| WEB1 – Hospital 1 | Local Training | Represents a participating hospital and performs local model training. |
-| WEB2 – Hospital 2 | Local Training | Represents another participating hospital and performs local model training. |
+The intended architecture routes hospital updates through the Client Server instead of direct hospital-to-central communication.
 
-**Infrastructure Technologies:**
+## 🌐 Network Infrastructure
 
-| Technology | Purpose |
+The infrastructure uses a distributed server architecture connecting hospital environments with client and central servers.
+
+### Network Components
+
+| Component | Responsibility |
 |---|---|
-| Oracle VirtualBox | Virtual machine management and server virtualization |
-| Ubuntu Server | Operating system for the server environments |
-| WireGuard VPN | Secure encrypted communication between participating servers |
-| Private Network | Communication between distributed infrastructure components |
+| Central Server | Coordinates federated learning and global model management |
+| Client Server | Relays communication between hospitals and central infrastructure |
+| Hospital Server 1 | Performs local training and sends model updates |
+| Hospital Server 2 | Performs local training and sends model updates |
+| WireGuard VPN | Provides encrypted network connectivity |
+| Firewall | Controls allowed incoming and outgoing traffic |
 
-## 🔐 Network Architecture & VPN Communication
+### Network Topology and IP Addressing
 
-The distributed infrastructure uses **WireGuard VPN** to establish secure communication between server environments.
+The following table represents the proposed lab network addressing plan:
 
-WireGuard provides encrypted network tunnels and private IP connectivity, allowing the participating servers to communicate without relying on direct public network exposure.
+| Machine | LAN IP Address | WireGuard VPN IP |
+|---|---|---|
+| Central Server | `192.168.50.1` | `10.8.0.1` |
+| Client Server | `192.168.50.2` | `10.8.0.2` |
+| Hospital Server 1 | `192.168.50.11` | `10.8.0.3` |
+| Hospital Server 2 | `192.168.50.12` | `10.8.0.4` |
 
-**Network Communication Workflow:**
+**Network Configuration:**
 
-1. Each server operates within its own Ubuntu Server virtual machine.
-2. WireGuard establishes secure VPN connectivity between participating nodes.
-3. Hospital servers communicate with the Client Server.
-4. The Client Server forwards model updates to the Central Server.
-5. The Central Server aggregates the received updates and produces an updated global model.
-6. The updated global model is returned through the Client Server to participating hospitals.
+- VPN Network: `10.8.0.0/24`
+- LAN Network: `192.168.50.0/24`
+- VPN Technology: WireGuard
+- Server Environment: Linux / Ubuntu
+- Virtualization: Oracle VirtualBox
 
-**Network Security:**
+> Note: The IP addresses above are a proposed documentation addressing plan. They must be verified against the actual WireGuard configurations, routes, and VirtualBox network settings before deployment.
 
-- Encrypted communication using WireGuard.
-- Private VPN addressing for server-to-server communication.
-- Separation between hospital environments and central coordination.
-- Private keys and sensitive VPN configuration files are excluded from the public repository.
+### 🔐 WireGuard VPN
+
+WireGuard is used to establish encrypted communication channels between authorized infrastructure nodes.
+
+**Main Responsibilities:**
+
+- Establish secure VPN tunnels.
+- Provide private IP addressing.
+- Protect communication between connected servers.
+- Support controlled server-to-server routing.
+- Reduce exposure of internal services to public networks.
+- Allow authorized infrastructure nodes to communicate securely.
+
+### 🧱 Firewall and Network Security
+
+Firewall policies help control network access and protect internal services.
+
+The security approach includes:
+
+- Allowing only required service ports.
+- Restricting unauthorized incoming connections.
+- Limiting administrative access to trusted machines.
+- Allowing VPN communication only between authorized peers.
+- Protecting internal APIs and model-transfer services.
+- Keeping VPN private keys and credentials outside source control.
+
+Actual firewall rules and service ports must match the deployed server configurations.
+
+### Network Communication Flow
+
+1. Hospital servers perform local model training.
+2. Hospitals send their model updates to the Client Server.
+3. The Client Server forwards updates to the Central Server.
+4. The Central Server performs the configured aggregation process.
+5. The global model is returned to the Client Server.
+6. The Client Server distributes the updated model to hospital participants.
 
 ## 🛠️ Technology Stack
 
-| Technology | Role |
+| Technology | Purpose |
 |---|---|
-| Node.js | JavaScript runtime |
-| Express.js | REST API framework |
-| MongoDB Atlas | Cloud database |
-| Mongoose | Data modeling and database operations |
+| Node.js | Backend Runtime |
+| Express.js | REST API Framework |
+| MongoDB Atlas | Cloud Database |
+| Mongoose | Database Modeling |
 | JWT | Authentication |
-| bcryptjs | Password hashing |
-| Python | AI service implementation |
-| FastAPI | AI service API |
-| Swagger | API documentation |
-| AES-256-GCM | Application-level encryption for selected fields |
-| Ubuntu Server | Server operating system |
-| Oracle VirtualBox | Virtualization platform |
-| WireGuard | Secure VPN networking |
+| bcryptjs | Password Hashing |
+| Python | AI Development |
+| FastAPI | AI Service API |
+| Scikit-learn | Machine Learning |
+| WireGuard | VPN Connectivity |
+| Linux / Ubuntu | Server Operating System |
+| VirtualBox | Virtual Server Environment |
+| Firewall | Network Traffic Control |
+| Swagger | API Documentation |
+| AES-256-GCM | Selected Field Encryption |
+| Git & GitHub | Version Control |
 
 ## 📂 Project Structure
 
 ```text
 Fedrated-Learning-pilot/
+│
 ├── Controllers/
-│   ├── auth.controller.js
-│   ├── Dashboard.controller.js
-│   ├── Hospital.controller.js
-│   └── Prediction.controller.js
 ├── Middleware/
-│   └── auth.middleware.js
 ├── Model/
-│   ├── User.model.js
-│   ├── Hospital.model.js
-│   ├── Dashboard.model.js
-│   └── Prediction.model.js
 ├── Routes/
-│   ├── auth.route.js
-│   ├── Dashboard.route.js
-│   ├── Hospital.route.js
-│   └── prediction.route.js
 ├── Utils/
-│   └── encryption.js
+│
+├── AI-Pilot/
+│   ├── 1_prepare_data.py
+│   ├── 2_train_federated.py
+│   ├── 3_app.py
+│   ├── 4_api.py
+│   ├── datasets/
+│   └── model artifacts
+│
+├── Infrastructure/
+│   ├── Central-Server/
+│   ├── Client-Server/
+│   ├── Hospital-Server-1/
+│   └── Hospital-Server-2/
+│
+├── Documentation/
+│
 ├── app.js
 ├── swagger.js
 ├── package.json
-└── .env.example
+├── .gitignore
+└── README.md
 ```
 
 ## ⚙️ Getting Started
@@ -153,18 +250,21 @@ Fedrated-Learning-pilot/
 ### Prerequisites
 
 - Node.js and npm
-- A MongoDB database
-- Python environment for the AI service
+- MongoDB database
+- Python and pip
 - Git
+- Linux / Ubuntu for server infrastructure
+- VirtualBox for the virtual-machine lab
 
 ### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/youssefzakaria14/Fedrated-Learning-pilot.git
+
 cd Fedrated-Learning-pilot
 ```
 
-### 2. Install Dependencies
+### 2. Install Backend Dependencies
 
 ```bash
 npm install
@@ -172,17 +272,17 @@ npm install
 
 ### 3. Configure Environment Variables
 
-Create a `.env` file in the project root:
+Create a local `.env` file using the exact environment variable names required by the backend configuration.
 
-```env
-PORT=3000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secure_jwt_secret
-AI_SERVICE_URL=http://127.0.0.1:8002
-PREDICTION_ENCRYPTION_KEY=your_64_character_hex_key
-```
+Typical configuration includes:
 
-Use the exact environment variable names and configuration required by your current code. Keep real credentials and encryption keys private. Never commit your actual `.env` file.
+- Backend port
+- MongoDB connection string
+- JWT secret
+- AI service URL
+- Encryption key
+
+Never upload real credentials, API keys, database connection strings, or encryption keys to GitHub.
 
 ### 4. Start the Backend
 
@@ -190,65 +290,69 @@ Use the exact environment variable names and configuration required by your curr
 npm start
 ```
 
-### 5. Start the AI Service
+### 5. Run the AI Service
 
-Run the Python FastAPI service in its own environment and configure `AI_SERVICE_URL` to match its actual host and port.
+Create a separate Python environment, install the dependencies listed in the AI-Pilot requirements file, and run the AI service using its configured entry point.
 
-### 6. Open the API Documentation
-
-When the server is running, open:
+### 6. Open Swagger Documentation
 
 ```text
 http://localhost:3000/api-docs
 ```
 
-If you configured a different port, replace `3000` with that port.
+Replace the port if the backend uses a different configuration.
 
-## 📡 API Modules
+## 📡 Backend API Modules
 
 | Module | Purpose |
 |---|---|
-| Authentication | Registration, login, user identity, and access control |
-| Hospitals | Hospital records and participant management |
-| Predictions | Prediction requests and saved prediction results |
-| Dashboard | Hospital statistics and AI training metrics |
+| Authentication | User registration and login |
+| Hospitals | Hospital and participant management |
+| Predictions | AI prediction requests and results |
+| Dashboard | Hospital and training information |
 | Swagger | Interactive API documentation |
 
-For the exact routes, request schemas, and response formats, refer to `swagger.js` and the route definitions.
+For exact HTTP methods, request bodies, response formats, and authorization requirements, refer to the current route definitions and Swagger configuration.
 
 ## 🔒 Security
 
-Security is an important part of a healthcare-oriented system.
+- JWT authentication for protected API endpoints.
+- Role-based authorization for doctors and administrators.
+- Password hashing before storage.
+- Encryption of selected sensitive database fields.
+- Environment variables for credentials and secrets.
+- WireGuard encrypted tunnels for private infrastructure communication.
+- Firewall policies to restrict unnecessary network access.
+- No private keys or real credentials in source control.
 
-- **JWT authentication** protects private endpoints.
-- **Role-based authorization** separates doctor and administrator access.
-- **Password hashing** helps protect stored user credentials.
-- **Field-level encryption** protects selected sensitive values stored in MongoDB.
-- **Environment variables** keep database credentials and encryption keys outside source code.
-- **Input validation** helps reject invalid request data.
+Encryption and VPN connectivity are security layers; they do not replace secure key management, authorization, auditing, or HTTPS/TLS where required.
 
-> Encryption keys must be stored securely and separately from encrypted data. Field encryption is one layer of protection; it does not replace authentication, authorization, secure key management, or transport encryption.
+## 📚 Documentation
 
-## 🎯 Project Goals
+Detailed technical documentation is available in the `Documentation/` directory.
 
-- Support collaboration between healthcare institutions.
-- Integrate AI-powered prediction workflows into a REST API.
-- Provide structured hospital and user management.
-- Protect selected sensitive database fields.
-- Make backend functionality accessible through documented endpoints.
+It covers:
+
+- Project Overview.
+- System Architecture.
+- Backend Installation.
+- API Documentation.
+- Network Architecture.
+- VPN and Infrastructure Configuration.
 
 ## 🚀 Future Improvements
 
-- Automated API testing and CI/CD.
-- More granular database permissions.
-- Improved audit logging for sensitive operations.
-- Production-ready secret and encryption-key management.
-- Expanded monitoring and error reporting.
+- Complete and validate all server deployment configurations.
+- Add more hospital participants.
+- Automate infrastructure deployment.
+- Expand centralized monitoring and logging.
+- Add automated testing and CI/CD.
+- Improve audit logging and infrastructure monitoring.
 
 ---
 
 <p align="center">
-  <b>Built for Healthcare • AI • Secure Backend Engineering</b>
-  <br/>
-  <sub>Node.js · Express.js · MongoDB · Python · FastAPI · Ubuntu · VirtualBox · WireGuard</sub>
+  **FedHealth — Healthcare • Artificial Intelligence • Federated Learning • Network Security**
+  <br>
+  <sub>Node.js · Express.js · MongoDB · Python · FastAPI · Linux · WireGuard · VirtualBox</sub>
 </p>
